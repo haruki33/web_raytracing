@@ -3,7 +3,7 @@ import { OrbitControls, Line } from "@react-three/drei";
 function RaytracingCanvas() {
 
   function Rectangle() {
-    const vertices = [
+    const vertices: [number, number, number][] = [
       [-5, -8, 10],
       [ 5, -8, 10],
       [-5, -8, -10],
@@ -22,7 +22,7 @@ function RaytracingCanvas() {
       [ 3,  1, -7]
     ];
 
-    const surfaceIndexs = [
+    const surfaceIndexs: [number, number, number, number][] = [
       [0, 1, 3, 2],
       [0, 1, 5, 4],  
       [2, 3, 7, 6],  
@@ -54,21 +54,23 @@ function RaytracingCanvas() {
             <mesh key={`face-${i}`}>
             <bufferGeometry>
               <bufferAttribute
-              attach="attributes-position"
-              count={4}
-              array={new Float32Array([
-                ...vertices[face[0]],
-                ...vertices[face[1]],
-                ...vertices[face[2]],
-                ...vertices[face[3]],
-              ])}
-              itemSize={3}
+                attach="attributes-position"
+                args={[
+                  new Float32Array([
+                    ...vertices[face[0]],
+                    ...vertices[face[1]],
+                    ...vertices[face[2]],
+                    ...vertices[face[3]],
+                  ]),
+                  3
+                ]}
               />
               <bufferAttribute
-              attach="index"
-              array={new Uint16Array([0, 1, 2, 0, 2, 3])}
-              count={6}
-              itemSize={1}
+                attach="index"
+                args={[
+                  new Uint16Array([0, 1, 2, 0, 2, 3]),
+                  1
+                ]}
               />
             </bufferGeometry>
             <meshStandardMaterial
@@ -83,7 +85,7 @@ function RaytracingCanvas() {
     );
   }
 
-  const rayPoints = [
+  const rayPoints: [number, number, number][][] = [
     [
       [-5, -8, 0],
       [-3, -5, 0],

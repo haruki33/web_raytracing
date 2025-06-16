@@ -1,7 +1,15 @@
+import type { FieldErrors } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 
 function Form() {
-  const defaultValues = {
+  const defaultValues: {
+    tpX: number,
+    tpY: number,
+    tpZ: number,
+    rpX: number,
+    rpY: number,
+    rpZ: number,
+  } = {
     tpX: 0,
     tpY: 0,
     tpZ: 0,
@@ -14,8 +22,8 @@ function Form() {
     defaultValues,
   })
 
-  const onSubmit = data => console.log(data)
-  const onError = err => console.error(err)
+  const onSubmit = (data: typeof defaultValues) => console.log(data)
+  const onError = (err: FieldErrors<typeof defaultValues>) => console.error(err)
 
   return (
     <>
