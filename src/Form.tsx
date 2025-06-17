@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form'
 
 function Form() {
   const defaultValues: {
+    enviType: number
+    N: number,
     tpX: number,
     tpY: number,
     tpZ: number,
@@ -10,6 +12,8 @@ function Form() {
     rpY: number,
     rpZ: number,
   } = {
+    enviType: 5,
+    N: 1,
     tpX: 0,
     tpY: 0,
     tpZ: 0,
@@ -22,12 +26,57 @@ function Form() {
     defaultValues,
   })
 
-  const onSubmit = (data: typeof defaultValues) => console.log(data)
+  const onSubmit = async(data: typeof defaultValues) => {
+    
+		const res = await fetch("http://127.0.0.1:8000/send", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+		});
+
+		const resData = await res.json();
+		console.log(resData);
+	};
+
   const onError = (err: FieldErrors<typeof defaultValues>) => console.error(err)
 
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
+        <div>
+          <p>環境のタイプ</p>
+          <div>
+            <label htmlFor="enviType">タイプ:</label>
+            <input id="enviType" type="number" step="1" min="0" max="10"
+            {...register('enviType', {
+              required: '環境のタイプは必須です',
+              max: {
+                value: 10,
+                message: '環境のタイプは10以下である必要があります'
+              },
+              valueAsNumber: true,
+            })} />
+          </div>
+          <div>{errors.enviType?.message}</div>
+        </div>
+        <div>
+          <p>反射回数</p>
+          <div>
+            <label htmlFor="N">N:</label>
+            <input id="N" type="number" step="1" min="0" max="10"
+            {...register('N', {
+              required: '反射回数は必須です',
+              max: {
+                value: 2,
+                message: '反射回数は2以下である必要があります'
+              },
+              valueAsNumber: true,
+            })} />
+          </div>
+          <div>{errors.N?.message}</div>
+        </div>
         <div>
           <p>送信器の座標</p>
           <div>
