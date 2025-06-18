@@ -12,22 +12,17 @@ type FormInputData = {
   rpZ: number,
 };
 
-type FormOutputData = {
-  points: number
-  surf: number,
-  tpX: number,
-  tpY: number,
-  tpZ: number,
-  rpX: number,
-  rpY: number,
-  rpZ: number,
+type ResponseData = {
+  points: [number, number, number][],
+  surfListIdxs: [number, number, number, number][],
 };
+
 
 type FormProps = {
-  setFormData: (data: FormInputData) => void
+  setRes: (data: ResponseData) => void
 };
 
-function Form({ setFormData }: FormProps) {
+function Form({ setRes }: FormProps) {
   const defaultValues: FormInputData = {
     enviType: 5,
     N: 1,
@@ -52,10 +47,10 @@ function Form({ setFormData }: FormProps) {
 			body: JSON.stringify(data),
 		});
 
-		const resData = await res.json();
-    setFormData(resData);
-		console.log(resData);
-	};
+    const resData: ResponseData = await res.json();
+    setRes(resData);
+    console.log(resData);
+  };
 
   const onError = (err: FieldErrors<typeof defaultValues>) => console.error(err)
 

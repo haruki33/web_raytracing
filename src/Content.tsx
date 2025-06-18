@@ -2,24 +2,19 @@ import { useState } from "react";
 import Form from "./Form";
 import RaytracingCanvas from "./RaytracingCanvas";
 
-type FormData = {
-  enviType: number
-  N: number,
-  tpX: number,
-  tpY: number,
-  tpZ: number,
-  rpX: number,
-  rpY: number,
-  rpZ: number,
+type ResponseData = {
+  points: [number, number, number][],
+  surfListIdxs: [number, number, number, number][],
 };
 
+
 function Content() {
-  const [formData, setFormData] = useState<FormData | null>(null);
+  const [res, setRes] = useState<ResponseData | null>(null);
 
   return (
     <>
-      <Form setFormData={setFormData} />
-      <RaytracingCanvas formData={formData} />
+      <Form setRes={setRes} />
+      <RaytracingCanvas res={res} />
     </>
   )
 }

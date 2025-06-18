@@ -1,25 +1,20 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Line } from "@react-three/drei";
 
-type FormData = {
-  enviType: number
-  N: number,
-  tpX: number,
-  tpY: number,
-  tpZ: number,
-  rpX: number,
-  rpY: number,
-  rpZ: number,
+type ResponseData = {
+  points: [number, number, number][],
+  surfsListIdxs: [number, number, number, number][],
 };
 
 type RectangleProps = {
-  formData: FormData | null;
+  res: ResponseData | null;
 };
 
-function Rectangle({ formData }: RectangleProps) {
-  if (!formData) return null;
-  const vertices: [number, number, number][] = formData.points;
-  const surfaceIndexs: [number, number, number, number][] = formData.surfsListIdxs;
+function Rectangle({ res }: RectangleProps) {
+  if (!res) return null;
+  const vertices: typeof res.points = res.points;
+  const surfaceIndexs: typeof res.surfsListIdxs = res.surfsListIdxs;
+
   return (
     <>
       {vertices.map((v, i) => (
@@ -64,8 +59,12 @@ function Rectangle({ formData }: RectangleProps) {
   );
 }
 
+type RayPathProps = {
+  res: ResponseData | null;
+};
 
-function RayPath( {formData} : FormData) {
+
+function RayPath( {res} : RayPathProps) {
   const rayPoints: [number, number, number][][] = [
     [
       [-5, -8, 0],
@@ -93,10 +92,10 @@ function RayPath( {formData} : FormData) {
 }
 
 type RaytracingCanvasProps = {
-  formData: FormData | null;
+  res: ResponseData | null;
 };
 
-function RaytracingCanvas( { formData }: RaytracingCanvasProps) {
+function RaytracingCanvas( { res }: RaytracingCanvasProps) {
   return (
     <>
       <Canvas
@@ -105,8 +104,8 @@ function RaytracingCanvas( { formData }: RaytracingCanvasProps) {
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[0, 0, 0]} />
-        <Rectangle formData={formData} />
-        <RayPath formData={formData} />
+        <Rectangle res={res} />
+        <RayPath res={res} />
         <OrbitControls />
       </Canvas>
     </>
