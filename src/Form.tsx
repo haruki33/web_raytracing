@@ -15,6 +15,9 @@ type FormInputData = {
 type ResponseData = {
   points: [number, number, number][],
   surfListIdxs: [number, number, number, number][],
+  routes: [number, number, number][],
+  tp: [number, number, number],
+  rp: [number, number, number],
 };
 
 

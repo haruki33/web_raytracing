@@ -4,7 +4,34 @@ import { OrbitControls, Line } from "@react-three/drei";
 type ResponseData = {
   points: [number, number, number][],
   surfsListIdxs: [number, number, number, number][],
+  routes: [number, number, number][],
+  tp: [number, number, number],
+  rp: [number, number, number],
 };
+
+type TpRpProps = {
+  res: ResponseData | null;
+};
+
+function TpRp({ res }: TpRpProps) {
+  if (!res) return null;
+  const Tp: typeof res.tp = res.tp;
+  const Rp: typeof res.rp = res.rp;
+
+  return (
+    <>
+      <mesh position={Tp as [number, number, number]}>
+        <sphereGeometry args={[0.5, 16, 16]} />
+        <meshStandardMaterial color="rgb(0, 255, 0)" />
+      </mesh>
+      <mesh position={Rp as [number, number, number]}>
+        <sphereGeometry args={[0.5, 16, 16]} />
+        <meshStandardMaterial color="rgb(0, 0, 255)" />
+      </mesh>
+    </>
+  );
+}
+
 
 type RectangleProps = {
   res: ResponseData | null;
@@ -63,20 +90,9 @@ type RayPathProps = {
   res: ResponseData | null;
 };
 
-
 function RayPath( {res} : RayPathProps) {
-  const rayPoints: [number, number, number][][] = [
-    [
-      [-5, -8, 0],
-      [-3, -5, 0],
-      [2, 2, 1],
-    ],
-    [
-      [5, 8, 0],
-      [-3, -5, 0],
-      [2, 2, 1],
-    ],
-  ];
+  if (!res) return null;
+  const rayPoints: typeof res.routes = res.routes;
   return (
     <>
       {rayPoints.map((points, index) => (
@@ -104,6 +120,7 @@ function RaytracingCanvas( { res }: RaytracingCanvasProps) {
       >
         <ambientLight intensity={0.5} />
         <pointLight position={[0, 0, 0]} />
+        <TpRp res={res} />
         <Rectangle res={res} />
         <RayPath res={res} />
         <OrbitControls />
