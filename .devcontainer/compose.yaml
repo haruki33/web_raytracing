@@ -1,0 +1,41 @@
+services:
+  backend:
+    build: ../app/backend
+    container_name: backend
+    working_dir: /workspace
+    volumes:
+      - type: bind
+        source: ../app/backend
+        target: /workspace/backend
+    ports:
+      - "8000:8000"
+    command: >
+      sh -c "cd ./backend && uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+
+  frontend:
+    image: node:20
+    container_name: frontend
+    working_dir: /workspace
+    volumes:
+      - type: bind
+        source: ../app/frontend
+        target: /workspace/frontend
+      - type: volume
+        source: node_modules
+        target: /workspace/frontend/node_modules
+      - type: bind
+        source: ../app/backend
+        target: /workspace/backend
+    ports:
+      - "3000:3000"
+    command: >
+      sh -c "cd ./frontend && npm install && npm run dev"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+    tty: true
+    depends_on:
+      - backend
+
+volumes:
+  node_modules:
