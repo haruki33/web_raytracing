@@ -1,13 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Line } from "@react-three/drei";
-
-type ResponseData = {
-  points: [number, number, number][],
-  surfsListIdxs: [number, number, number, number][],
-  routes: [number, number, number][],
-  tp: [number, number, number],
-  rp: [number, number, number],
-};
+import type { ResponseData } from "./type";
 
 type TpRpProps = {
   res: ResponseData | null;
