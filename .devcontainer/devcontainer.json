@@ -12,8 +12,8 @@
         "GitHub.copilot",
         "GitHub.copilot-chat",
         "dbaeumer.vscode-eslint",
-        "ritwickdey.LiveServer",
-        "ms-python.python"
+        "ms-python.python",
+        "seatonjiang.gitmoji-vscode"
       ],
       "settings": {
         "editor.tabSize": 2,
