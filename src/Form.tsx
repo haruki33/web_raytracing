@@ -1,6 +1,9 @@
 import type { FieldErrors } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import type { FormInputData, ResponseData } from './type'
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { Box } from '@react-three/drei';
 
 type FormProps = {
   setRes: (data: ResponseData) => void
@@ -44,8 +47,7 @@ function Form({ setRes }: FormProps) {
         <div>
           <p>環境のタイプ</p>
           <div>
-            <label htmlFor="enviType">タイプ:</label>
-            <input id="enviType" type="number" step="1" min="0" max="10"
+            <TextField id="enviType" type="number" label="タイプ" variant='outlined'
             {...register('enviType', {
               required: '環境のタイプは必須です',
               max: {
@@ -60,8 +62,7 @@ function Form({ setRes }: FormProps) {
         <div>
           <p>反射回数</p>
           <div>
-            <label htmlFor="N">N:</label>
-            <input id="N" type="number" step="1" min="0" max="10"
+            <TextField id="N" type="number" label="N" variant='outlined'
             {...register('N', {
               required: '反射回数は必須です',
               max: {
@@ -75,90 +76,112 @@ function Form({ setRes }: FormProps) {
         </div>
         <div>
           <p>送信器の座標</p>
-          <div>
-            <label htmlFor="tpX">X:</label>
-            <input id="tpX" type="number" step="1" min="0" max="10"
-            {...register('tpX', {
-              required: 'TP X is required',
-              max: {
-                value: 10,
-                message: 'TP X must be at most 10'
-              },
-              valueAsNumber: true,
-            })} />
-          </div>
-          <div>{errors.tpX?.message}</div>
-          <div>
-            <label htmlFor="tpY">Y:</label>
-            <input id="tpY" type="number" step="1" min="0" max="10"
-            {...register('tpY', {
-              required: 'TP Y is required',
-              max: {
-                value: 10,
-                message: 'TP Y must be at most 10'
-              },
-              valueAsNumber: true,
-            })} />
-          </div>
-          <div>{errors.tpX?.message}</div>
-          <div>
-            <label htmlFor="tpZ">Z:</label>
-            <input id="tpZ" type="number" step="1" min="0" max="10"
-            {...register('tpZ', {
-              required: 'TP Z is required',
-              max: {
-                value: 10,
-                message: 'TP Z must be at most 10'
-              },
-              valueAsNumber: true,
-            })} />
-          </div>
-          <div>{errors.tpZ?.message}</div>
+          <Box display="flex" flexDirection="row" gap={2}>
+            <TextField
+              id="tpX"
+              type="number"
+              label="X"
+              variant="outlined"
+              {...register('tpX', {
+                required: 'TP X is required',
+                max: {
+                  value: 10,
+                  message: 'TP X must be at most 10'
+                },
+                valueAsNumber: true,
+              })}
+              error={!!errors.tpX}
+              helperText={errors.tpX?.message}
+            />
+            <TextField
+              id="tpY"
+              type="number"
+              label="Y"
+              variant="outlined"
+              {...register('tpY', {
+                required: 'TP Y is required',
+                max: {
+                  value: 10,
+                  message: 'TP Y must be at most 10'
+                },
+                valueAsNumber: true,
+              })}
+              error={!!errors.tpY}
+              helperText={errors.tpY?.message}
+            />
+            <TextField
+              id="tpZ"
+              type="number"
+              label="Z"
+              variant="outlined"
+              {...register('tpZ', {
+                required: 'TP Z is required',
+                max: {
+                  value: 10,
+                  message: 'TP Z must be at most 10'
+                },
+                valueAsNumber: true,
+              })}
+              error={!!errors.tpZ}
+              helperText={errors.tpZ?.message}
+            />
+          </Box>
         </div>
         <div>
           <p>受信器の座標</p>
-          <div>
-            <label htmlFor="rpX">X:</label>
-            <input id="rpX" type="number" step="1" min="0" max="10"
-            {...register('rpX', {
-              required: 'RP X is required',
-              max: {
-                value: 10,
-                message: 'RP X must be at most 10'
-              },
-              valueAsNumber: true,
-            })} />
-          </div>
-          <div>{errors.rpX?.message}</div>
-          <div>
-            <label htmlFor="rpY">Y:</label>
-            <input id="rpY" type="number" step="1" min="0" max="10"
-            {...register('rpY', {
-              required: 'RP Y is required',
-              max: {
-                value: 10,
-                message: 'RP Y must be at most 10'
-              },
-              valueAsNumber: true,
-            })} />
-          </div>
-          <div>{errors.rpY?.message}</div>
-          <div>
-            <label htmlFor="rpZ">Z:</label>
-            <input id="rpZ" type="number" step="1" min="0" max="10"
-            {...register('rpZ', {
-              required: 'RP Z is required',
-              max: {
-                value: 10,
-                message: 'RP Z must be at most 10'
-              },
-              valueAsNumber: true,
-            })} />
-          </div>
-          <div>{errors.rpZ?.message}</div>
+          <Box display="flex" flexDirection="row" gap={2}>
+            <TextField
+              id="rpX"
+              type="number"
+              label="X"
+              variant="outlined"
+              {...register('rpX', {
+                required: 'RP X is required',
+                max: {
+                  value: 10,
+                  message: 'RP X must be at most 10'
+                },
+                valueAsNumber: true,
+              })}
+              error={!!errors.rpX}
+              helperText={errors.rpX?.message}
+            />
+            <TextField
+              id="rpY"
+              type="number"
+              label="Y"
+              variant="outlined"
+              {...register('rpY', {
+                required: 'RP Y is required',
+                max: {
+                  value: 10,
+                  message: 'RP Y must be at most 10'
+                },
+                valueAsNumber: true,
+              })}
+              error={!!errors.rpY}
+              helperText={errors.rpY?.message}
+            />
+            <TextField
+              id="rpZ"
+              type="number"
+              label="Z"
+              variant="outlined"
+              {...register('rpZ', {
+                required: 'RP Z is required',
+                max: {
+                  value: 10,
+                  message: 'RP Z must be at most 10'
+                },
+                valueAsNumber: true,
+              })}
+              error={!!errors.rpZ}
+              helperText={errors.rpZ?.message}
+            />
+          </Box>
         </div>
         <div>
-          <button type="submit">Submit</button>
+          <Button type="submit" variant='outlined'>Submit</Button>
         </div>
       </form>
     </>
