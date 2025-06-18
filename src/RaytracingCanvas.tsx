@@ -1,13 +1,23 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Line } from "@react-three/drei";
 
-// RectangleProps型を追加
-interface RectangleProps {
-  formData: any;
-}
+type FormData = {
+  enviType: number
+  N: number,
+  tpX: number,
+  tpY: number,
+  tpZ: number,
+  rpX: number,
+  rpY: number,
+  rpZ: number,
+};
 
-// Rectangleを関数の外に移動し、propsを受け取るように修正
+type RectangleProps = {
+  formData: FormData | null;
+};
+
 function Rectangle({ formData }: RectangleProps) {
+  if (!formData) return null;
   const vertices: [number, number, number][] = formData.points;
   const surfaceIndexs: [number, number, number, number][] = formData.surfsListIdxs;
   return (
@@ -54,11 +64,8 @@ function Rectangle({ formData }: RectangleProps) {
   );
 }
 
-type RayPathProps = {
-  formData: any;
-}
 
-function RayPath() {
+function RayPath( {formData} : FormData) {
   const rayPoints: [number, number, number][][] = [
     [
       [-5, -8, 0],
@@ -85,7 +92,9 @@ function RayPath() {
   );
 }
 
-
+type RaytracingCanvasProps = {
+  formData: FormData | null;
+};
 
 function RaytracingCanvas( { formData }: RaytracingCanvasProps) {
   return (
@@ -97,7 +106,7 @@ function RaytracingCanvas( { formData }: RaytracingCanvasProps) {
         <ambientLight intensity={0.5} />
         <pointLight position={[0, 0, 0]} />
         <Rectangle formData={formData} />
-        <RayPath />
+        <RayPath formData={formData} />
         <OrbitControls />
       </Canvas>
     </>

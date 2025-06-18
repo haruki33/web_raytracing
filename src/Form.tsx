@@ -1,21 +1,34 @@
 import type { FieldErrors } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 
+type FormInputData = {
+  enviType: number
+  N: number,
+  tpX: number,
+  tpY: number,
+  tpZ: number,
+  rpX: number,
+  rpY: number,
+  rpZ: number,
+};
+
+type FormOutputData = {
+  points: number
+  surf: number,
+  tpX: number,
+  tpY: number,
+  tpZ: number,
+  rpX: number,
+  rpY: number,
+  rpZ: number,
+};
+
 type FormProps = {
-  setFormData: (data: any) => void
+  setFormData: (data: FormInputData) => void
 };
 
 function Form({ setFormData }: FormProps) {
-  const defaultValues: {
-    enviType: number
-    N: number,
-    tpX: number,
-    tpY: number,
-    tpZ: number,
-    rpX: number,
-    rpY: number,
-    rpZ: number,
-  } = {
+  const defaultValues: FormInputData = {
     enviType: 5,
     N: 1,
     tpX: 0,
@@ -30,8 +43,7 @@ function Form({ setFormData }: FormProps) {
     defaultValues,
   })
 
-  const onSubmit = async(data: typeof defaultValues) => {
-    
+  const onSubmit = async(data: FormInputData) => {
 		const res = await fetch("http://127.0.0.1:8000/send", {
 			method: "POST",
 			headers: {
