@@ -1,7 +1,11 @@
 import type { FieldErrors } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 
-function Form() {
+type FormProps = {
+  setFormData: (data: any) => void
+};
+
+function Form({ setFormData }: FormProps) {
   const defaultValues: {
     enviType: number
     N: number,
@@ -37,6 +41,7 @@ function Form() {
 		});
 
 		const resData = await res.json();
+    setFormData(resData);
 		console.log(resData);
 	};
 
