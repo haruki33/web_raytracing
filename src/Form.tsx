@@ -47,13 +47,9 @@ function Form({ setRes }: FormProps) {
         <div>
           <p>環境のタイプ</p>
           <div>
-            <TextField id="enviType" type="number" label="タイプ" variant='outlined'
+            <TextField id="enviType" type="number" label="タイプ" variant='outlined' size="small"
             {...register('enviType', {
               required: '環境のタイプは必須です',
-              max: {
-                value: 10,
-                message: '環境のタイプは10以下である必要があります'
-              },
               valueAsNumber: true,
             })} />
           </div>
@@ -62,13 +58,9 @@ function Form({ setRes }: FormProps) {
         <div>
           <p>反射回数</p>
           <div>
-            <TextField id="N" type="number" label="N" variant='outlined'
+            <TextField id="N" type="number" label="N" variant='filled' size="small"
             {...register('N', {
               required: '反射回数は必須です',
-              max: {
-                value: 2,
-                message: '反射回数は2以下である必要があります'
-              },
               valueAsNumber: true,
             })} />
           </div>
@@ -81,13 +73,10 @@ function Form({ setRes }: FormProps) {
               id="tpX"
               type="number"
               label="X"
-              variant="outlined"
+              variant="filled"
+              size="small"
               {...register('tpX', {
-                required: 'TP X is required',
-                max: {
-                  value: 10,
-                  message: 'TP X must be at most 10'
-                },
+                required: '送信機のX座標は必須です',
                 valueAsNumber: true,
               })}
               error={!!errors.tpX}
@@ -97,7 +86,8 @@ function Form({ setRes }: FormProps) {
               id="tpY"
               type="number"
               label="Y"
-              variant="outlined"
+              variant="filled"
+              size="small"
               {...register('tpY', {
                 required: 'TP Y is required',
                 max: {
@@ -113,7 +103,8 @@ function Form({ setRes }: FormProps) {
               id="tpZ"
               type="number"
               label="Z"
-              variant="outlined"
+              variant="filled"
+              size="small"
               {...register('tpZ', {
                 required: 'TP Z is required',
                 max: {
@@ -134,7 +125,8 @@ function Form({ setRes }: FormProps) {
               id="rpX"
               type="number"
               label="X"
-              variant="outlined"
+              variant="filled"
+              size="small"
               {...register('rpX', {
                 required: 'RP X is required',
                 max: {
@@ -150,7 +142,8 @@ function Form({ setRes }: FormProps) {
               id="rpY"
               type="number"
               label="Y"
-              variant="outlined"
+              variant="filled"
+              size="small"
               {...register('rpY', {
                 required: 'RP Y is required',
                 max: {
@@ -166,7 +159,8 @@ function Form({ setRes }: FormProps) {
               id="rpZ"
               type="number"
               label="Z"
-              variant="outlined"
+              variant="filled"
+              size="small"
               {...register('rpZ', {
                 required: 'RP Z is required',
                 max: {
@@ -181,7 +175,7 @@ function Form({ setRes }: FormProps) {
           </Box>
         </div>
         <div>
-          <Button type="submit" variant='outlined'>Submit</Button>
+          <Button type="submit" variant='outlined' fullWidth size="small">Submit</Button>
         </div>
       </form>
     </>
