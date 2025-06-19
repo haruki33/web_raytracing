@@ -6,7 +6,11 @@ import { Button, Box } from '@mui/material';
 
 const navItems = ['Home', 'Simulation', 'How to Use', 'Documentation'];
 
-function Header() {
+type headerProps = {
+  onSelectedPage: (page: string) => void;
+};
+
+function Header( { onSelectedPage }: headerProps) {
   return (
     <AppBar position="sticky" color="default" elevation={0}>
       <Toolbar sx={{ justifyContent: 'space-between', px: 4 }}>
@@ -15,7 +19,11 @@ function Header() {
         </Typography>
         <Box>
           {navItems.map((item) => (
-            <Button key={item} sx={{ fontFamily: 'Noto Sans JP, sans-serif', color: '#333', fontSize: '0.875rem', textTransform: 'uppercase', mx: 1, fontWeight: 500, '&:hover': { color: '#0066cc' } }}>
+            <Button
+              key={item}
+              sx={{ fontFamily: 'Noto Sans JP, sans-serif', color: '#333', fontSize: '0.875rem', textTransform: 'uppercase', mx: 1, fontWeight: 500, '&:hover': { color: '#0066cc' } }}
+              onClick={() => onSelectedPage(`/${item.toLowerCase().split(' ').join('')}`)}
+            >
               {item}
             </Button>
           ))}
