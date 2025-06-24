@@ -9,10 +9,10 @@ function Simulation() {
 
   return (
     <>
-      <Container sx={{ border: "1px solid #1a1a1a", padding: 2, marginTop: 2, borderRadius: 2 }}>
+      <Container sx={{ padding: 2, marginTop: 2, borderRadius: 2 }}>
         <Form setRes={setRes} />
       </Container>
-      <Container sx={{ border: "1px solid #1a1a1a", padding: 2, marginTop: 2, borderRadius: 2 }}>
+      <Container sx={{ padding: 2, marginTop: 2, borderRadius: 2 }}>
         <RaytracingCanvas res={res} />
       </Container>
     </>

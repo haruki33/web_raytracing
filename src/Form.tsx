@@ -1,7 +1,8 @@
 import type { FieldErrors } from 'react-hook-form'
 import { useForm } from 'react-hook-form'
 import type { FormInputData, ResponseData } from './type'
-import Grid from '@mui/material/Grid'
+import { Grid, Button, TextField, Paper, Typography, Divider } from '@mui/material'
+// import SendIcon from '@mui/icons-material/Send'
 
 type FormProps = {
   setRes: (data: ResponseData) => void
@@ -24,14 +25,13 @@ function Form({ setRes }: FormProps) {
   })
 
   const onSubmit = async(data: FormInputData) => {
-		const res = await fetch("http://127.0.0.1:8000/send", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-		});
-
+    const res = await fetch("http://127.0.0.1:8000/send", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
     const resData: ResponseData = await res.json();
     setRes(resData);
     console.log(resData);
@@ -40,135 +40,182 @@ function Form({ setRes }: FormProps) {
   const onError = (err: FieldErrors<typeof defaultValues>) => console.error(err)
 
   return (
-    <>
+    <Paper elevation={3} sx={{ p: 4, margin: 'auto', mt: 4 }}>
       <form onSubmit={handleSubmit(onSubmit, onError)} noValidate>
-        <Grid container spacing={2}>
-          {/* 環境のタイプ */}
-          <Grid>
-            <h4>environment</h4>
-            <div>
-              <label htmlFor="enviType">タイプ:</label>
-              <input id="enviType" type="number" step="1" min="0" max="10"
-          {...register('enviType', {
-            required: '環境のタイプは必須です',
-            max: {
-              value: 10,
-              message: '環境のタイプは10以下である必要があります'
-            },
-            valueAsNumber: true,
-          })} />
-            </div>
-            <div>{errors.enviType?.message}</div>
+        <Typography variant="h5" gutterBottom>Setting</Typography>
+        <Divider sx={{ my: 2 }} />
+        <Grid container spacing={3} direction="column">
+          {/* Environment Type */}
+          <Grid size={12}>
+            <Typography variant="subtitle1" gutterBottom>Environment</Typography>
+            <TextField
+              fullWidth
+              label="タイプ"
+              type="number"
+              inputProps={{ step: 1, min: 0, max: 10 }}
+              error={!!errors.enviType}
+              helperText={errors.enviType?.message}
+              {...register('enviType', {
+                required: '環境のタイプは必須です',
+                max: {
+                  value: 10,
+                  message: '環境のタイプは10以下である必要があります'
+                },
+                valueAsNumber: true,
+              })}
+            />
           </Grid>
-          {/* 反射回数 */}
-          <Grid>
-            <h4>反射回数</h4>
-            <div>
-              <label htmlFor="N">N:</label>
-              <input id="N" type="number" step="1" min="0" max="10"
-          {...register('N', {
-            required: '反射回数は必須です',
-            max: {
-              value: 2,
-              message: '反射回数は2以下である必要があります'
-            },
-            valueAsNumber: true,
-          })} />
-            </div>
-            <div>{errors.N?.message}</div>
+
+          {/* Tx */}
+          <Grid size={12}>
+            <Typography variant="subtitle1" gutterBottom>Tx</Typography>
+            <Grid container spacing={1} direction="row">
+              <Grid size={4}>
+                <TextField
+                  fullWidth
+                  label="X"
+                  type="number"
+                  inputProps={{ step: 1, min: 0, max: 10 }}
+                  error={!!errors.tpX}
+                  helperText={errors.tpX?.message}
+                  {...register('tpX', {
+                    required: 'TP X is required',
+                    max: {
+                      value: 10,
+                      message: 'TP X must be at most 10',
+                    },
+                    valueAsNumber: true,
+                  })}
+                />
+              </Grid>
+              <Grid size={4}>
+                <TextField
+                  fullWidth
+                  label="Y"
+                  type="number"
+                  inputProps={{ step: 1, min: 0, max: 10 }}
+                  error={!!errors.tpY}
+                  helperText={errors.tpY?.message}
+                  {...register('tpY', {
+                    required: 'TP Y is required',
+                    max: {
+                      value: 10,
+                      message: 'TP Y must be at most 10',
+                    },
+                    valueAsNumber: true,
+                  })}
+                />
+              </Grid>
+              <Grid size={4}>
+                <TextField
+                  fullWidth
+                  label="Z"
+                  type="number"
+                  inputProps={{ step: 1, min: 0, max: 10 }}
+                  error={!!errors.tpZ}
+                  helperText={errors.tpZ?.message}
+                  {...register('tpZ', {
+                    required: 'TP Z is required',
+                    max: {
+                      value: 10,
+                      message: 'TP Z must be at most 10',
+                    },
+                    valueAsNumber: true,
+                  })}
+                />
+              </Grid>
+            </Grid>
           </Grid>
-          {/* Tx Setting */}
-          <Grid>
-            <p>Tx Setting</p>
-            <div>
-              <label htmlFor="tpX">X:</label>
-              <input id="tpX" type="number" step="1" min="0" max="10"
-          {...register('tpX', {
-            required: 'TP X is required',
-            max: {
-              value: 10,
-              message: 'TP X must be at most 10'
-            },
-            valueAsNumber: true,
-          })} />
-            </div>
-            <div>{errors.tpX?.message}</div>
-            <div>
-              <label htmlFor="tpY">Y:</label>
-              <input id="tpY" type="number" step="1" min="0" max="10"
-          {...register('tpY', {
-            required: 'TP Y is required',
-            max: {
-              value: 10,
-              message: 'TP Y must be at most 10'
-            },
-            valueAsNumber: true,
-          })} />
-            </div>
-            <div>{errors.tpY?.message}</div>
-            <div>
-              <label htmlFor="tpZ">Z:</label>
-              <input id="tpZ" type="number" step="1" min="0" max="10"
-          {...register('tpZ', {
-            required: 'TP Z is required',
-            max: {
-              value: 10,
-              message: 'TP Z must be at most 10'
-            },
-            valueAsNumber: true,
-          })} />
-            </div>
-            <div>{errors.tpZ?.message}</div>
+
+          {/* Rx */}
+          <Grid size={12}>
+            <Typography variant="subtitle1" gutterBottom>Rx</Typography>
+            <Grid container spacing={1} direction="row">
+              <Grid size={4}>
+                <TextField
+                  fullWidth
+                  label="X"
+                  type="number"
+                  inputProps={{ step: 1, min: 0, max: 10 }}
+                  error={!!errors.rpX}
+                  helperText={errors.rpX?.message}
+                  {...register('rpX', {
+                    required: 'RP X is required',
+                    max: {
+                      value: 10,
+                      message: 'RP X must be at most 10',
+                    },
+                    valueAsNumber: true,
+                  })}
+                />
+              </Grid>
+              <Grid size={4}>
+                <TextField
+                  fullWidth
+                  label="Y"
+                  type="number"
+                  inputProps={{ step: 1, min: 0, max: 10 }}
+                  error={!!errors.rpY}
+                  helperText={errors.rpY?.message}
+                  {...register('rpY', {
+                    required: 'RP Y is required',
+                    max: {
+                      value: 10,
+                      message: 'RP Y must be at most 10',
+                    },
+                    valueAsNumber: true,
+                  })}
+                />
+              </Grid>
+              <Grid size={4}>
+                <TextField
+                  fullWidth
+                  label="Z"
+                  type="number"
+                  inputProps={{ step: 1, min: 0, max: 10 }}
+                  error={!!errors.rpZ}
+                  helperText={errors.rpZ?.message}
+                  {...register('rpZ', {
+                    required: 'RP Z is required',
+                    max: {
+                      value: 10,
+                      message: 'RP Z must be at most 10',
+                    },
+                    valueAsNumber: true,
+                  })}
+                />
+              </Grid>
+            </Grid>
           </Grid>
-          {/* 受信器の座標 */}
-          <Grid>
-            <p>受信器の座標</p>
-            <div>
-              <label htmlFor="rpX">X:</label>
-              <input id="rpX" type="number" step="1" min="0" max="10"
-          {...register('rpX', {
-            required: 'RP X is required',
-            max: {
-              value: 10,
-              message: 'RP X must be at most 10'
-            },
-            valueAsNumber: true,
-          })} />
-            </div>
-            <div>{errors.rpX?.message}</div>
-            <div>
-              <label htmlFor="rpY">Y:</label>
-              <input id="rpY" type="number" step="1" min="0" max="10"
-          {...register('rpY', {
-            required: 'RP Y is required',
-            max: {
-              value: 10,
-              message: 'RP Y must be at most 10'
-            },
-            valueAsNumber: true,
-          })} />
-            </div>
-            <div>{errors.rpY?.message}</div>
-            <div>
-              <label htmlFor="rpZ">Z:</label>
-              <input id="rpZ" type="number" step="1" min="0" max="10"
-          {...register('rpZ', {
-            required: 'RP Z is required',
-            max: {
-              value: 10,
-              message: 'RP Z must be at most 10'
-            },
-            valueAsNumber: true,
-          })} />
-            </div>
-            <div>{errors.rpZ?.message}</div>
+
+          {/* Propagation N */}
+          <Grid size={12}>
+            <Typography variant="subtitle1" gutterBottom>Propagation</Typography>
+            <TextField
+              fullWidth
+              label="N"
+              type="number"
+              inputProps={{ step: 1, min: 0, max: 2 }}
+              error={!!errors.N}
+              helperText={errors.N?.message}
+              {...register('N', {
+                required: '反射回数は必須です',
+                max: {
+                  value: 2,
+                  message: '反射回数は2以下である必要があります'
+                },
+                valueAsNumber: true
+              })}
+            />
           </Grid>
         </Grid>
-        <div>
-          <button type="submit">Submit</button>
-        </div>
+        <Grid container justifyContent="flex-end" sx={{ mt: 3 }}>
+          <Button type="submit" variant="contained">
+            Send
+          </Button>
+        </Grid>
       </form>
-    </>
+    </Paper>
   )
 }
 

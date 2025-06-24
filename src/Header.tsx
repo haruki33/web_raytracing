@@ -15,7 +15,7 @@ function Header( { onSelectedPage }: headerProps) {
   return (
     <AppBar position="sticky" color="default" elevation={0}>
       <Toolbar sx={{ flexDirection: 'column', justifyContent: 'center', px: 4, py: 2, gap: 1.5 }}>
-        <Typography variant="h6" component="div" className="header-font" sx={{ color: '#1a1a1a' }}>
+        <Typography variant="h6" component="div" sx={{ fontFamily: "'Pacifico', cursive", color: '#1a1a1a' }}>
           RayTracing
         </Typography>
         <Box>
