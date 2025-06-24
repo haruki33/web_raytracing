@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { OrbitControls, Line } from "@react-three/drei";
 import type { ResponseData } from "./type";
+import { Grid, Button, TextField, Paper, Typography, Divider } from '@mui/material'
 
 type TpRpProps = {
   res: ResponseData | null;
@@ -107,17 +108,21 @@ type RaytracingCanvasProps = {
 function RaytracingCanvas( { res }: RaytracingCanvasProps) {
   return (
     <>
-      <Canvas
-        style={{ width: "300pt", height: "300pt", background: "rgb(238, 238, 238)" }}
-        camera={{ position: [30, -30, 0], fov: 40 }}
-      >
-        <ambientLight intensity={0.5} />
-        <pointLight position={[0, 0, 0]} />
-        <TpRp res={res} />
-        <Rectangle res={res} />
-        <RayPath res={res} />
-        <OrbitControls />
-      </Canvas>
+      <Paper elevation={3} sx={{ p: 4, margin: 'auto', mt: 4 }}>
+      <Typography variant="h5" gutterBottom>Result</Typography>
+      <Divider sx={{ my: 2 }} />
+        <Canvas
+          style={{ width: "300pt", height: "300pt", background: "rgb(238, 238, 238)" }}
+          camera={{ position: [30, -30, 0], fov: 40 }}
+          >
+          <ambientLight intensity={0.5} />
+          <pointLight position={[0, 0, 0]} />
+          <TpRp res={res} />
+          <Rectangle res={res} />
+          <RayPath res={res} />
+          <OrbitControls />
+        </Canvas>
+      </Paper>
     </>
   )
 }
